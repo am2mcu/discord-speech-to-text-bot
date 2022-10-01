@@ -41,19 +41,19 @@ async def id(message):
 
 # Speech to text
 @bot.command()
-async def text(message):
-    if message.message.attachments != []:
-        await message.channel.send("Transcripting the audio, Wait for it...")
+async def text(ctx):
+    if ctx.message.attachments != []:
+        await ctx.channel.send("Transcripting the audio, Wait for it...")
 
-        result = await transcript.main(message.message.attachments[0].url)
+        result = await transcript.main(ctx.message.attachments[0].url)
         print(result)
 
         if (result == ""):
-            await message.reply("Failed to transcript the audio")
+            await ctx.reply("Failed to transcript the audio")
         else:
-            await message.reply(result)
+            await ctx.reply(result)
     else:
-        await message.reply("Provide an audio")
+        await ctx.reply("Provide an audio")
 
 # Text to speech
 @bot.command()
