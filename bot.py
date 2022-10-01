@@ -42,10 +42,10 @@ async def id(message):
 # Speech to text
 @bot.command()
 async def text(message):
-    if message.attachments != []:
+    if message.message.attachments != []:
         await message.channel.send("Transcripting the audio, Wait for it...")
 
-        result = await transcript.main(message.attachments[0].url)
+        result = await transcript.main(message.message.attachments[0].url)
         print(result)
 
         if (result == ""):
