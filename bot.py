@@ -3,6 +3,7 @@ from discord.ext import commands
 import config
 import transcript
 import tts
+import weather_api
 
 TOKEN = config.TOKEN
 
@@ -61,5 +62,21 @@ async def speech(message, *text):
     text = " ".join(text)
     await message.channel.send("Generating the audio, Wait for it...")
     await message.reply(file=discord.File(await tts.get_audio(text), "audio.mp3"))
+
+@bot.command()
+async def weather(ctx, *msg):
+    if (msg == ()):
+        await ctx.reply("The city is missing")
+        return
+
+    await ctx.reply(await weather_api.short_broadcast(" ".join(msg)))
+
+@bot.command()
+async def weather_full(ctx, arg, *msg):
+    if (msg == ()):
+        await ctx.reply("The city is missing")
+        return
+
+    await ctx.reply(await weather_api.full_broadcast(" ".join(msg)))
 
 bot.run(TOKEN)
