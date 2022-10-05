@@ -33,6 +33,6 @@ async def full_broadcast(city):
 
     location = response_json["location"]["name"] + ", " + response_json["location"]["region"] + ", " + response_json["location"]["country"]
     time = response_json["location"]["localtime"] + " " + response_json["location"]["tz_id"]
-    wind_speed = str(response_json["current"]["wind_kph"]) + " | " + str(response_json["current"]["wind_mph"]) + " 🍃"
+    wind_speed = str(response_json["current"]["wind_kph"]) + " kph" + " | " + str(response_json["current"]["wind_mph"]) + " mph" + " 🍃"
 
     return location + "\n" + time + "\n" + await short_broadcast(city) + wind_speed

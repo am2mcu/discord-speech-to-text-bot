@@ -72,7 +72,7 @@ async def weather(ctx, *msg):
     await ctx.reply(await weather_api.short_broadcast(" ".join(msg)))
 
 @bot.command()
-async def weather_full(ctx, arg, *msg):
+async def weather_full(ctx, *msg):
     if (msg == ()):
         await ctx.reply("The city is missing")
         return
