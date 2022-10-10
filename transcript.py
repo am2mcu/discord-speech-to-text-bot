@@ -1,11 +1,11 @@
 import requests
 import time
-import config
+import os
 
 UPLOAD_ENDPOINT = "https://api.assemblyai.com/v2/upload"
 TRANSCRIPT_ENDPOINT = "https://api.assemblyai.com/v2/transcript"
 HEADER = header = {
-        'authorization': config.API_KEY_STT,
+        'authorization': os.environ.get("API_KEY_STT"),
         'content-type': 'application/json'
         }
 

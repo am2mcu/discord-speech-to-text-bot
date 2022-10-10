@@ -1,11 +1,11 @@
 import discord
 from discord.ext import commands
-import config
+import os
 import transcript
 import tts
 import weather_api
 
-TOKEN = config.TOKEN
+TOKEN = os.environ.get("TOKEN")
 
 # debugger
 def debug(msg):

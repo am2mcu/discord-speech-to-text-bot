@@ -1,9 +1,9 @@
 # Local
-import config
+import os
 # Library
 import requests as req
 
-API_URL = f"http://api.weatherapi.com/v1/forecast.json?key={config.WEATHER_API_KEY}&q="
+API_URL = f"http://api.weatherapi.com/v1/forecast.json?key={os.environ.get('WEATHER_API_KEY')}&q="
 
 def find_location(city):
     url = API_URL + city
