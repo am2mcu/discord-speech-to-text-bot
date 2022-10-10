@@ -115,6 +115,5 @@ async def main(url):
 
     for para in paragraphs:
         transcripted_result += para['text'] + '\n'
-        # print(para['text'] + '\n')
 
     return transcripted_result

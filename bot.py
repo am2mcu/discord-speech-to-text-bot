@@ -47,7 +47,6 @@ async def text(ctx):
         await ctx.channel.send("Transcripting the audio, Wait for it...")
 
         result = await transcript.main(ctx.message.attachments[0].url)
-        print(result)
 
         if (result == ""):
             await ctx.reply("Failed to transcript the audio")
