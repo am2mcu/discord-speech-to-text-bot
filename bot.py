@@ -68,7 +68,16 @@ async def weather(ctx, *msg):
         await ctx.reply("The city is missing")
         return
 
-    await ctx.reply(await weather_api.short_broadcast(" ".join(msg)))
+    weather_info = await weather_api.short_broadcast(" ".join(msg))
+
+    if (type(weather_info) == type("")): # when there isn't error weather_info is a dictionary
+        embed = discord.Embed(title=weather_info, color=0x666666)
+        await ctx.reply(embed=embed)
+        return
+
+    embed = discord.Embed(title=weather_info["weather_condition"], description=weather_info["temperature"] + "\n" + weather_info["humidity"], color=0x666666)
+    embed.set_thumbnail(url=weather_info["icon_link"])
+    await ctx.reply(embed=embed)
 
 @bot.command()
 async def weather_full(ctx, *msg):
@@ -76,6 +85,22 @@ async def weather_full(ctx, *msg):
         await ctx.reply("The city is missing")
         return
 
-    await ctx.reply(await weather_api.full_broadcast(" ".join(msg)))
+    weather_info = await weather_api.full_broadcast(" ".join(msg))
+
+    if (type(weather_info) == type("")): # when there isn't error weather_info is a dictionary
+        embed = discord.Embed(title=weather_info, color=0x666666)
+        await ctx.reply(embed=embed)
+        return
+
+    embed = discord.Embed(
+        title=weather_info["weather_condition"],
+        description=weather_info["location"] + "\n" + weather_info["time"],
+        color=0x666666
+        )
+    embed.set_thumbnail(url=weather_info["icon_link"])
+    embed.add_field(name="Temperature", value=weather_info["temperature"], inline=True)
+    embed.add_field(name="Hummidity", value=weather_info["humidity"], inline=True)
+    embed.add_field(name="Wind Speed", value=weather_info["wind_speed"], inline=True)
+    await ctx.reply(embed=embed)
 
 bot.run(TOKEN)
