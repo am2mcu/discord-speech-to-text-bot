@@ -20,7 +20,7 @@ async def short_broadcast(city):
         return response_json
 
     weather_condition = response_json["current"]["condition"]["text"]
-    temperature = str(response_json["current"]["temp_c"]) + " °C" + " | " + str(response_json["current"]["temp_f"]) + " °F"
+    temperature = str(response_json["current"]["temp_c"]) + "° C" + " | " + str(response_json["current"]["temp_f"]) + "° F" + " 🌡"
     icon_link = "https:" + response_json["current"]["condition"]["icon"]
     humidity = str(response_json["current"]["humidity"]) + "%" + " 💧"
 
