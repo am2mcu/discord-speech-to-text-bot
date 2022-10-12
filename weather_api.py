@@ -24,7 +24,10 @@ async def short_broadcast(city):
     icon_link = "https:" + response_json["current"]["condition"]["icon"]
     humidity = str(response_json["current"]["humidity"]) + "%" + " 💧"
 
-    return icon_link + "\n" + weather_condition + "\n" + temperature + "\n" + humidity + "\n"
+    return {
+        "weather_condition": weather_condition, "temperature": temperature,
+        "icon_link": icon_link, "humidity": humidity,
+    }
 
 async def full_broadcast(city):
     response_json = find_location(city)
@@ -35,4 +38,4 @@ async def full_broadcast(city):
     time = response_json["location"]["localtime"] + " " + response_json["location"]["tz_id"]
     wind_speed = str(response_json["current"]["wind_kph"]) + " kph" + " | " + str(response_json["current"]["wind_mph"]) + " mph" + " 🍃"
 
-    return location + "\n" + time + "\n" + await short_broadcast(city) + wind_speed
+    return {"location": location, "time": time, "wind_speed": wind_speed} | await short_broadcast(city)
