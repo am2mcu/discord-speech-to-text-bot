@@ -103,4 +103,66 @@ async def weather_full(ctx, *msg):
     embed.add_field(name="Wind Speed", value=weather_info["wind_speed"], inline=True)
     await ctx.reply(embed=embed)
 
+# simple loop
+@bot.command()
+async def count(contex, message = 10):
+    for i in range(1, int(message) + 1):
+        if i == 1:
+            await contex.reply(i)
+        else:
+            await contex.send(i)
+
+
+# simply eval expression
+@bot.command()
+async def calculate(contex, *message):
+    expression = "".join(message)
+
+    await contex.reply(eval(expression))
+
+# rock paper scissors (TODO: round & count & winner -> input in loop)
+@bot.command()
+async def game(contex, message):
+    import random
+
+    user_point = 0
+    computer_point = 0
+
+    await contex.reply("Go ahead!")
+
+    for i in range(int(message)):
+        user = (await bot.wait_for('message')).content.lower()
+        computer = random.choice(["🪨", "📃", "✂️"])
+        await contex.reply(computer)
+
+        if (user == "🪨" or "rock"):
+            if (computer == "📃"):
+                computer_point += 1
+            elif (computer == "✂️"):
+                user_point += 1
+
+        elif (user == "📃" or "paper"):
+            if (computer == "✂️"):
+                computer_point += 1
+            elif (computer == "🪨"):
+                user_point += 1
+
+        else:
+            if (computer == "🪨"):
+                computer_point += 1
+            elif (computer == "📃"):
+                user_point += 1
+                
+
+    await contex.reply("You: " + str(user_point) + " | " + "CPU: " + str(computer_point))
+
+    
+
+# random
+@bot.command()
+async def dice(contex):
+    import random
+
+    await contex.reply(random.randint(1, 6))
+
 bot.run(TOKEN)
